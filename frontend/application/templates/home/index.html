@@ -1,0 +1,27 @@
+{% extends "base_col_1.html" %}
+{% block title %}Home Page{% endblock %}
+
+{% block pageContent %}
+<div class="container">
+    {% if products | length > 0 %}
+        <div class="row">
+            {% for product in products.results %}
+                {% set url = "/product/" + product.slug %}
+                {% set imageSRC = "images/" + product.image %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ url_for('static', filename=imageSRC) }}" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">Price: {{ product.price }} $</p>
+                            <a href="{{ url }}" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <strong>No products found.</strong>
+    {% endif %}
+</div>
+{% endblock %}
